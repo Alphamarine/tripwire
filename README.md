@@ -1,5 +1,7 @@
 # tripwire
 
+**English** · [Українська](README.uk.md)
+
 **Stop walking into the same trap twice.**
 
 An agent skill that watches **you**, not the agent. When you steer into one of your own recurring traps, it asks one short question before the work starts. When you steer into a pain every programmer, engineer or mathematician knows, it adds one line. You always decide. Every flag is logged, and a weekly review shows whether any of it changed a decision.
