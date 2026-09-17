@@ -1,8 +1,35 @@
 # tripwire
 
-An agent skill that watches **you**, not the agent. When you start walking into a complexity trap or a known engineering pain, it flags the trap with one question. You decide.
+**Stop walking into the same trap twice.**
 
-Scope guards stop an agent from building too much. Tripwire covers the other side: the requests that make the agent build too much in the first place — another guard, another reviewer, automation after the first occurrence, a new thread before the current one is done.
+An agent skill that watches **you**, not the agent. When you steer into one of your own recurring traps, it asks one short question before the work starts. When you steer into a pain every programmer, engineer or mathematician knows, it adds one line. You always decide. Every flag is logged, and a weekly review shows whether any of it changed a decision.
+
+## Why it exists
+
+Tripwire is inspired by [grill-me](https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me) by Matt Pocock: one small skill, one sharp behavior, a large effect on the quality of a plan. We wanted that simplicity and that quality.
+
+Using it, we kept hitting two gaps:
+
+1. **A grilling happens when you ask for it.** The expensive traps open when you don't: in the middle of work, on a good evening, with a "while this runs, let's also…".
+2. **What the grilling finds stays in that session.** Next week you add the same extra guard, start the same research round, reopen the same closed decision. Nothing carries the lesson back to you.
+
+Tripwire fills both gaps:
+
+- **It shows up uninvited, once.** It asks the question at the moment the trap opens, and stays silent otherwise.
+- **It knows your traps.** A short profile in your own words lists the patterns you actually repeat. Your questions come first.
+- **It knows the field's traps too.** A catalog of 36 documented traps backs it up: cognitive biases with experimental evidence, laws of software engineering, named anti-patterns, and classic mistakes in proofs. Each one has a source.
+- **It remembers.** One log line per flag, and a weekly `tripwire review` that counts course changes, false alarms and missed traps.
+
+## What it catches
+
+| Your traps (floor 1, from your profile) | Field-known pain (floor 2, from the catalog) |
+|---|---|
+| another guard, validator or reviewer for one observed failure | sunk cost: "three evenings in, one more" |
+| automation after the first occurrence | planning fallacy: "definitely by Friday" |
+| one more research round instead of a cheap experiment | second-system effect: v2 "does everything" |
+| a new thread before the current one has a DONE | one green run taken as proof |
+| a closed decision reopened under a new name | bikeshedding, yak shaving, cargo cult |
+| scaling to everyone before it works for you | "obviously" at the load-bearing step of a proof |
 
 ## How it works
 
