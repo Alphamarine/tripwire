@@ -2,11 +2,16 @@
 
 Replace every example below with your own words. Tripwire uses your triggers and questions before its built-in list.
 
+Each trap carries the address it came from. `tripwire setup` fills these in from your record; writing by hand, put whatever you can point at later — a commit, a file, a date. A trap you cannot point at is one you will argue with at the first review.
+
 ## My recurring traps
 
 - **Overengineering by addition.** Problem → rule → guard → test for the guard → orchestration. Each step is logical; the sum is the problem.
+  evidence: deploy/checks/ — four guards, all added after one missing env var (a1b2c3d)
 - **Early automation.** A one-off manual action turns into a workflow.
+  evidence: scripts/sync-reports — written the first time the report was needed, run twice since
 - **Open loops.** "While this runs, let's also…" opens a new loop before the last one is closed.
+  evidence: three unmerged branches opened in one week, one of them merged
 
 ## Triggers → questions
 

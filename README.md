@@ -86,7 +86,9 @@ Open a new session and say:
 tripwire setup
 ```
 
-It reads the record first — this session, your session transcripts, git, timers, open PRs, 90 days back — and comes back with candidate traps that each carry an address: a commit, a file:line, a log line. Then it grills you on those, turns the patterns **you recognise** into a triggers → questions table, writes the file, and hands you the one line that registers it. About ten minutes. Points you reject are dropped: a trap you don't believe in produces a flag you will ignore. It asks you to recall things only when there is no record to read.
+It reads the record first — this session, your session transcripts, git, timers, open PRs, 90 days back — and comes back with candidate traps that each carry an address: a commit, a file:line, a log line. Then it grills you on those, turns the patterns **you recognise** into a triggers → questions table, writes the file, and hands you the one line that registers it. About ten minutes of your time. Points you reject are dropped: a trap you don't believe in produces a flag you will ignore. It asks you to recall things only when there is no record to read.
+
+What it will not do: it writes one file, at a path you confirm, and only once you have approved what goes in it. If something is already there, it shows you that file instead of writing over it. The line that registers the profile is handed to you — your `CLAUDE.md` configures every session you have, and editing it is your call, not a step on the way.
 
 Just finished a grilling — [grill-me](https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me) or any other? Say `tripwire setup` in that same session. The interview takes its evidence from what you just found instead of asking for it again. The grilling produces the insight; the profile is what makes it survive the week.
 
@@ -122,7 +124,7 @@ Tripwire can keep a log, one line per flag. To turn logging on, name a log file 
 Profile: ~/whoami.md. Tripwire log: ~/tripwire-log.md. Reviews: ~/tripwire-reviews.md.
 ```
 
-Once a week, say `tripwire review`. The review goes through the open log lines with you and reports, per floor:
+Once a week, say `tripwire review`. It counts what can be counted — open directions from your branches, timers and PRs; traps you walked into unflagged from the week's record — and brings you the list to confirm or correct, rather than asking you to remember. Then it reports, per floor:
 
 - how many flags changed your course;
 - how many were false alarms;
@@ -136,7 +138,7 @@ Experimental. Tripwire started as a personal trial on 2026-09-16.
 
 | Version | What changed |
 |---|---|
-| 0.4.0 | `tripwire setup` builds the profile from the record — transcripts, git, the log — instead of asking you to remember; every trap carries an evidence address. `tripwire review` counts missed traps and open directions from the record too. |
+| 0.4.0 | `tripwire setup` builds the profile from the record — transcripts, git, the log — instead of asking you to remember; every trap carries an evidence address, and setup writes one file you approved, never your `CLAUDE.md`. `tripwire review` counts for you too, inside a week-sized ceiling. Restores five norms the 0.3 compression dropped. |
 | 0.3 | Merged two skills that ran side by side: the personal lens (floor 1) and a general catalog (floor 2). |
 
 ## License
