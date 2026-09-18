@@ -32,6 +32,11 @@ If the session has history — a repository, a log, earlier messages — mine it
 evidence before asking, and bring what you found: "you opened three branches last week
 and closed one" beats asking the same thing blind.
 
+If the session already contains a grilling — the user stress-testing a plan or a
+decision with an agent — take the patterns from there first and put them to the user
+for confirmation instead of asking the four questions again. A grilling produces the
+insight; the profile is what makes it survive the week.
+
 ## Step 2 — grill
 
 Follow **Roast mode** in `SKILL.md` exactly: 3–5 points, sharpest first, each one

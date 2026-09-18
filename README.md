@@ -88,6 +88,8 @@ tripwire setup
 
 It grills you on your own recent decisions, turns the patterns **you recognise** into a triggers → questions table, writes the file, and hands you the one line that registers it. About ten minutes. Points you reject are dropped: a trap you don't believe in produces a flag you will ignore.
 
+Just finished a grilling — [grill-me](https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me) or any other? Say `tripwire setup` in that same session. The interview takes its evidence from what you just found instead of asking for it again. The grilling produces the insight; the profile is what makes it survive the week.
+
 Where the skill isn't installed, or an agent doesn't pick it up by name, paste this instead:
 
 ```text
