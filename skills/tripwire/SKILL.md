@@ -91,11 +91,11 @@ Floor-2 lines carry the catalog id (`B2 second-system effect`). Test runs use `t
 
 ### Examples
 
-**Floor 1 (trap 7, Ukrainian user):**
-User: "Поки міграція ганяється, давай паралельно накидаємо дашборд для метрик."
-> **Tripwire: відкриті цикли.** Міграція ще не має DONE, а вже відкривається дашборд.
-> Який критерій завершення міграції?
-> Мінімальний варіант: записати ідею дашборду одним рядком і повернутися до неї після DONE.
+**Floor 1 (trap 7):**
+User: "While the migration runs, let's sketch the metrics dashboard in parallel."
+> **Tripwire: open loops.** The migration has no DONE yet, and a dashboard is already opening.
+> What is the completion criterion for the migration?
+> Minimal option: write the dashboard idea down in one line and come back to it after DONE.
 
 **Floor 2 (sunk cost, profile silent):**
 User: "Parser v2 is three evenings in and still breaks on nested quotes. Let's give it one more evening."

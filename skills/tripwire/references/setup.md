@@ -48,7 +48,7 @@ For each confirmed pattern, write one row: the **observable move** that starts i
 
 | Good row | Why |
 |---|---|
-| `хочу автоматизувати` → `Це повторювана проблема чи перший випадок?` | names a move the user can catch themselves making |
+| `I want to automate this` → `Is it a repeated problem or the first case?` | names a move the user can catch themselves making |
 | `propose a new guard` → `Which observed failure does it remove?` | question is about cost, answerable in one line |
 
 | Bad row | Why |

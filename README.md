@@ -55,6 +55,8 @@ A floor-2 note looks like this:
 
 > **Tripwire · sunk cost (Arkes & Blumer 1985):** Starting today with zero invested, would you pick this parser? Minimal option: count only the evenings still ahead; park the branch, don't delete it.
 
+Tripwire replies in your language.
+
 ## Install
 
 With the [skills CLI](https://skills.sh):
