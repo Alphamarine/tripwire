@@ -57,7 +57,7 @@ Stay silent when the step is cheap and reversible, when the user is learning or 
 
 **One flag per move.** Check floor 1 first. Go to floor 2 only when floor 1 is silent, and skip catalog rows the profile already covers.
 
-If you are about to flag a third time in one session (both floors together) and the user proceeded each time, go quiet. At a natural break, mention once that tripwire may be miscalibrated for them.
+If you are about to flag a third time in one session (both floors together) and the user proceeded each time, go quiet. At a natural break, mention once that tripwire may be miscalibrated for them. Nagging is a trap of its own.
 
 ## How to flag
 
@@ -71,7 +71,7 @@ Before doing any of the work:
 > <One question, from their profile or the default catalog.>
 > Minimal option: <the cheapest alternative, one line>.
 
-Then stop and wait; starting the complex version in the same message answers the question on the user's behalf. Proceed → do it fully, without repeating the warning. Minimal → do the minimal option.
+Then stop and wait; starting the complex version in the same message answers the question on the user's behalf. Proceed → do it fully. No reluctance, no repeating the warning: the decision was theirs, and tripwire's job was only the question. Minimal → do the minimal option.
 
 ### Floor 2: note
 
@@ -83,7 +83,7 @@ The user can pick it up on the next turn or ignore it. When the flagged step is 
 
 ### Logging (only if the profile or `AGENTS.md` names a log and you can write files)
 
-Append exactly one line per flag, after the user's answer; for a floor-2 note the user did not answer, write `noted` when the conversation moves on.
+Append exactly one line per flag, after the user's answer; for a floor-2 note the user did not answer, write `noted` when the conversation moves on. Don't add any other bookkeeping.
 
 ```
 - YYYY-MM-DD | <agent>[:fieldguide] | #<n> <trap> | <what was proposed, ≤12 words> | <proceed|minimal|dismissed|noted> | outcome: ?
@@ -92,6 +92,12 @@ Append exactly one line per flag, after the user's answer; for a floor-2 note th
 Floor-2 lines carry the catalog id (`B2 second-system effect`). Test runs use `test` or `test:fieldguide` and are excluded from the numbers.
 
 ### Examples
+
+**Floor 1 (trap 1):**
+User: "Deploy failed because an env var was missing. Let's add a pre-deploy validator agent, a test for it, and wire it into the orchestrator."
+> **Tripwire: layer on layer.** One missing variable → a new agent, its test and orchestrator wiring.
+> Which failure besides this one would the agent catch?
+> Minimal option: add the variable to the template and a line to the deploy checklist; build the validator if it happens again.
 
 **Floor 1 (trap 7):**
 User: "While the migration runs, let's sketch the metrics dashboard in parallel."
@@ -117,7 +123,7 @@ Use this when the user asks for a roast, a pattern review, or to be grilled:
 - Give 3–5 points, sharpest first. Each point goes **observation → evidence** (a fact, a phrase or a log line) **→ the question it raises**. Mark anything not directly evidenced as a guess, or leave it out. Name floor-2 points by catalog id and source.
 - Name one real strength the evidence supports. The purpose is calibration, not comfort.
 - A hard, self-ironic tone is fine when asked for. Aim it at the work patterns, never at the person.
-- End with the one pattern to watch next and one concrete action.
+- End with the one pattern to watch next and one concrete action. Don't add a list of improvements, because that list would be trap 7.
 
 ## Review mode ("tripwire review", scheduled by the user)
 
