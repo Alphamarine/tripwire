@@ -1,6 +1,6 @@
 ---
 name: tripwire
-description: Stops you from walking into the same trap twice. Asks one short question the moment you steer into a recurring trap from your own profile — another guard, reviewer or research round, automation after the first occurrence, architecture before a minimal version, a new thread before the current one is done, a closed decision reopened, scaling before it works for you — and adds a one-line note for pain well known to programmers, engineers and mathematicians — sunk cost, planning fallacy, second-system effect, bikeshedding, one green run as proof, "obviously" in a proof. Logs every flag and reviews weekly whether it changed a decision. Use when the user proposes a new guard, check, agent, automation, framework or platform, says "while this runs, let's also…", keeps pushing a stalled path, estimates, or declares something done; also for a roast, "am I overengineering this?", or "tripwire review".
+description: Stops you from walking into the same trap twice. Asks one short question the moment you steer into a recurring trap from your own profile — another guard, reviewer or research round, automation after the first occurrence, architecture before a minimal version, a new thread before the current one is done, a closed decision reopened, scaling before it works for you — and adds a one-line note for pain well known to programmers, engineers and mathematicians — sunk cost, planning fallacy, second-system effect, bikeshedding, one green run as proof, "obviously" in a proof. Logs every flag and reviews weekly whether it changed a decision. Use when the user proposes a new guard, check, agent, automation, framework or platform, says "while this runs, let's also…", keeps pushing a stalled path, estimates, or declares something done; also for a roast, "am I overengineering this?", "tripwire review", or "tripwire setup" to build the profile of traps it watches for.
 ---
 
 # Tripwire
@@ -20,6 +20,12 @@ People who fall into these traps usually already know their patterns; another de
 Look for the user's own trap list: a "triggers → questions" section in CLAUDE.md or AGENTS.md, a `whoami.md`, or a file the user points to. Their words and questions take priority over the default catalog, because they describe the traps this person actually falls into.
 
 The profile or `AGENTS.md` may also name a **tripwire log** and a **review file**. If neither is named, skip logging entirely.
+
+**No profile?** Use the default catalog below, and say so once per session — right after the first flag, never as an opening message:
+
+> No trap profile found, so this question came from the built-in list. Want your own, in about ten minutes? Say `tripwire setup`.
+
+On `tripwire setup`, or any request to build or rewrite the profile, read `references/setup.md` and follow it. Don't improvise the interview.
 
 ## Default floor-1 catalog (only when there is no profile)
 

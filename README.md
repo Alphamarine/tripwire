@@ -74,13 +74,38 @@ For ChatGPT, zip the `tripwire/` folder and upload it in **Skills**. ChatGPT can
 
 ## Give it your profile
 
-Floor 1 works best with your own trap list. Without one, tripwire falls back to its built-in list.
+Floor 1 works best with your own trap list. Without one, tripwire falls back to its built-in list of 11 traps — still useful, but the questions are generic, so false alarms are likelier.
+
+### Let the agent write it
+
+Open a new session and say:
+
+```text
+tripwire setup
+```
+
+It grills you on your own recent decisions, turns the patterns **you recognise** into a triggers → questions table, writes the file, and hands you the one line that registers it. About ten minutes. Points you reject are dropped: a trap you don't believe in produces a flag you will ignore.
+
+Where the skill isn't installed, or an agent doesn't pick it up by name, paste this instead:
+
+```text
+Grill me about the traps I actually repeat as an engineer — where I overbuild,
+over-plan, or avoid deciding. Use only evidence from what I tell you, and ask me
+for that evidence first, one question at a time. Then write ~/whoami.md: my traps
+in my own words, plus a "triggers → questions" table where each row is an
+observable move and one short question about cost. Finish with the one line I add
+to my CLAUDE.md or AGENTS.md to register the file.
+```
+
+### Or write it by hand
 
 1. Copy `examples/profile.md` to a private place, for example `~/whoami.md`.
 2. Replace the example traps with the ones you actually fall into, in your own words.
 3. Add one line to your global `CLAUDE.md` or `AGENTS.md` that names the file.
 
-Keep the profile private. It describes how you work, and the skill does not need it to be public.
+Keep the profile private either way. It describes how you work, and the skill does not need it to be public.
+
+The first version will be wrong in places. Rows that never fire get deleted at the weekly review, and traps you walked into unflagged get added — the profile is meant to sharpen, not to grow.
 
 ## Measure whether it helps
 
