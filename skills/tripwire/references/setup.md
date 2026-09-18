@@ -18,10 +18,21 @@ kills the skill.
 - **One question at a time.** This is an interview, not a form. Wait for each answer.
 - **Ten minutes, then stop.** A short profile that fires is worth more than a complete
   one that never gets finished. Three traps are enough to start.
+- **Write one file, and only after they approve it.** The profile, at a path they
+  confirmed. Their `CLAUDE.md` or `AGENTS.md` is theirs: hand them the line to paste,
+  never paste it for them unless they ask.
+- **Interview in the language the user writes in.** If their only message so far is the
+  trigger phrase, use the language of the session around it and switch the moment they
+  answer in another.
 
 ## Step 1 — read the record
 
-Collect the evidence yourself before asking anything. Go in this order and stop at the
+First look for a profile that already exists, where `SKILL.md` says to look. If there is
+one, show its triggers and ask whether to extend it or start over; don't quietly replace
+somebody's file.
+
+Open with two lines — about ten minutes, and it ends with a file they approve. Then
+collect the evidence yourself, before asking anything. Go in this order and stop at the
 ceiling below:
 
 1. **This session** — what the user has already said, asked for and changed their mind
@@ -44,8 +55,9 @@ sessions** and **50 commits**, newest first. Collection without a ceiling turns 
 the endless audit that is itself trap 5. When you hit the ceiling, say what you left
 unread instead of reading more.
 
-Bring back candidates, not conclusions, and give every candidate an address:
-`file:line`, a commit hash, a log line, or a timestamp in a transcript.
+Reading is all you do here. Bring back candidates, not conclusions, and give every
+candidate an address: `file:line`, a commit hash, a log line, or a timestamp in a
+transcript.
 
 ### Step 1b — fallback, only when there is no record
 
@@ -78,6 +90,11 @@ audits" rule does not apply here — setup is *about* the past, and Step 1 is th
 added after one 429` is evidence; "you tend to over-guard" is not. Drop a point you
 cannot address.
 
+When Step 1b was the path, the four answers may be all the evidence there is. That is
+enough for three points — grill from what they said, and nothing else. If even that is too thin to grill honestly,
+say so in one line and go to step 3: a pattern the user named themselves is already
+confirmed and needs no roast to earn its row.
+
 Then ask the user which of the points they recognise. **Only confirmed points become
 traps.** A point they reject is dropped without argument — it is their profile, and a
 trap they don't believe in produces a flag they will ignore.
@@ -108,7 +125,8 @@ later: at review the user can go and look, instead of re-deciding from memory.
 Ask where it should live and whether the path is private — the profile describes how
 the user works and does not belong in a public repository. For the default, read the
 user's global agent rules (`~/.claude/CLAUDE.md`, `AGENTS.md`) and use the profile path
-named there; only if none is named offer `~/whoami.md`.
+named there; only if none is named offer `~/whoami.md`. If that path already holds a
+file, show its first lines and ask before writing over it.
 
 ```markdown
 # whoami — <name>
@@ -128,7 +146,7 @@ named there; only if none is named offer `~/whoami.md`.
 
 ## How to talk to me
 
-- <two or three lines, only if the user stated them>
+- <two or three lines, only if the user stated them; drop the whole section otherwise>
 ```
 
 Write the file, then show the triggers table back in the reply so the user sees what
@@ -137,7 +155,8 @@ will fire without opening anything.
 ## Step 5 — wire it up
 
 Give the user one line to paste into their global `CLAUDE.md` or `AGENTS.md`, with the
-path they chose in Step 4:
+path they chose in Step 4 — give it, don't paste it. Editing the file that configures
+every one of their sessions is their call, not a step you take on the way:
 
 ```text
 Profile: <profile path>. Tripwire log: ~/tripwire-log.md. Reviews: ~/tripwire-reviews.md.
