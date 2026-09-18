@@ -123,10 +123,17 @@ later: at review the user can go and look, instead of re-deciding from memory.
 ## Step 4 — write the file
 
 Ask where it should live and whether the path is private — the profile describes how
-the user works and does not belong in a public repository. For the default, read the
-user's global agent rules (`~/.claude/CLAUDE.md`, `AGENTS.md`) and use the profile path
-named there; only if none is named offer `~/whoami.md`. If that path already holds a
-file, show its first lines and ask before writing over it.
+the user works and does not belong in a public repository. For the default, look in the
+user's global agent rules (`~/.claude/CLAUDE.md`, `AGENTS.md`) for a profile path they
+have already named, and offer that one; only if none is named, offer `~/whoami.md`.
+
+Those rules files are where the path is written down. They are never the file you write
+the profile into, and you never edit them here. When you say what you are about to do,
+name the profile's own path in full — "writing the profile at ~/.claude/CLAUDE.md" reads
+to the user as their global rules being rewritten, which is the one thing this skill
+promises not to do.
+
+If that path already holds a file, show its first lines and ask before writing over it.
 
 ```markdown
 # whoami — <name>
