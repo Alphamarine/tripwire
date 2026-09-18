@@ -119,7 +119,7 @@ The repetition is already established, so just help build the watchdog.
 Use this when the user asks for a roast, a pattern review, or to be grilled:
 
 - In a live conversation, work only from what is **already in context**: the conversation, loaded memory or profile, the log, and files the user provided. A roast that stops the work for a fresh audit is itself trap 5.
-- **Exception: `tripwire setup` and `tripwire review` read the record first** — transcripts, git, the log — because both are about what already happened, not about the next decision. Reading there is the task, not an escape from it; the window and ceiling in `references/setup.md` keep it bounded.
+- **Exception: `tripwire setup` and `tripwire review` read the record first** — transcripts, git, the log — because both are about what already happened, not about the next decision. Reading there is the task, not an escape from it, and each has a stated ceiling — setup's in `references/setup.md`, review's in step 3 — so neither turns into the audit.
 - Give 3–5 points, sharpest first. Each point goes **observation → evidence** (a fact, a phrase or a log line) **→ the question it raises**. Mark anything not directly evidenced as a guess, or leave it out. Name floor-2 points by catalog id and source.
 - Name one real strength the evidence supports. The purpose is calibration, not comfort.
 - A hard, self-ironic tone is fine when asked for. Aim it at the work patterns, never at the person.
@@ -129,14 +129,16 @@ Use this when the user asks for a roast, a pattern review, or to be grilled:
 
 The review answers one question: **is tripwire changing decisions, or only producing text?**
 
+Anything countable, count yourself. The user's part is confirming and correcting a list you bring, never recalling a number — a number recalled is trap A7 in the catalog, and a weekly quiz is how a review stops happening.
+
 1. Read the log lines since the last review, the profile, and the last entry in the review file.
 2. Go through the entries whose outcome is still `?` together with the user, one short answer each:
    - `enough`: the minimal option held up.
    - `needed-more`: the minimal option was not enough.
    - `false-alarm`: the flag was useless.
    - `n/a`: the user proceeded with the original plan, or ignored a note.
-3. Find the traps walked into without a flag yourself — the same sources as `references/setup.md` Step 1, narrowed to the period since the last review — then put each candidate to the user with its address for confirmation. Log each confirmed case as `missed`. Ask blind only if the record is unreachable.
-4. Count the open directions from the record: unmerged branches, running timers and units, open PRs and issues. Show the number and the list, and let the user correct it.
+3. Find the traps walked into without a flag yourself, from the record since the last review: the sources in `references/setup.md` Step 1, at most **10 sessions** and **25 commits** — a week's worth, not a quarter's. Put each candidate to the user with its address, one line each, and they answer yes or no. Log each confirmed case as `missed`. Ask blind only when the record is unreachable.
+4. Count the open directions yourself, cheapest source first: unmerged branches, running timers and units, open PRs and issues — one command each, no transcript mining here. Show the number and the list; the user corrects it.
 5. Report the numbers **per floor, side by side** (floor 1 = `<agent>`, floor 2 = `<agent>:fieldguide`): flagged; changed course (chose minimal); false alarms; missed; of the minimal choices, how many were enough and how many needed more; open directions compared with the last review. Lines from an older setup where the two floors ran as separate skills could both fire on one move; report them separately.
 6. Roast in 3–5 points, following roast mode, with log lines as evidence.
 7. Propose **at most one** change to the skill, the catalog or the profile, tied to a specific log line. "No change" is a valid and often the best result. A catalog row that never fired is a candidate for deletion.
