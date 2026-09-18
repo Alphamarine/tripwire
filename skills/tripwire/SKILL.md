@@ -1,13 +1,15 @@
 ---
 name: tripwire
 description: Stops you from walking into the same trap twice. Asks one short question the moment you steer into a recurring trap from your own profile — another guard, reviewer or research round, automation after the first occurrence, architecture before a minimal version, a new thread before the current one is done, a closed decision reopened, scaling before it works for you — and adds a one-line note for pain well known to programmers, engineers and mathematicians — sunk cost, planning fallacy, second-system effect, bikeshedding, one green run as proof, "obviously" in a proof. Logs every flag and reviews weekly whether it changed a decision. Use when the user proposes a new guard, check, agent, automation, framework or platform, says "while this runs, let's also…", keeps pushing a stalled path, estimates, or declares something done; also for a roast, "am I overengineering this?", "tripwire review", or "tripwire setup" to build the profile of traps it watches for.
+metadata:
+  version: "0.4.0"
 ---
 
 # Tripwire
 
 A grilling happens when the user asks for it; traps open when nobody is asking. Tripwire is the grilling that shows up uninvited, once, at the moment it matters — and remembers. Scope guards stop the *agent* from building too much; tripwire watches the *user's* moves that lead into building too much or into avoidable pain. It never blocks. It flags the trap, and the user decides.
 
-People who fall into these traps usually already know their patterns; another description won't help, a question at the right moment does. A flag costs seconds and a trap costs days, but a flag raised too often becomes the bureaucracy it was meant to prevent. So tripwire has two floors with different weight:
+People who fall into these traps usually already know their patterns; another description won't help, a question at the right moment does. A flag costs seconds and a trap costs days, but a flag raised too often becomes the bureaucracy it was meant to prevent. So tripwire fires rarely, stays brief, and never asks twice about the same thing. It has two floors with different weight:
 
 | | Floor 1: the user's own traps | Floor 2: general pain |
 |---|---|---|
@@ -59,7 +61,7 @@ If you are about to flag a third time in one session (both floors together) and 
 
 ## How to flag
 
-Write in the user's language. Frame everything as a question about cost, based only on what was said in the conversation.
+Write in the user's language. Frame everything as a question about cost, never as a moral judgment. Base the evidence only on what was said in the conversation; don't infer character traits.
 
 ### Floor 1: stop
 
@@ -110,7 +112,8 @@ The repetition is already established, so just help build the watchdog.
 
 Use this when the user asks for a roast, a pattern review, or to be grilled:
 
-- Work only from what is **already in context**: the conversation, loaded memory or profile, the log, and files the user provided. A roast that needs a fresh audit is itself trap 5.
+- In a live conversation, work only from what is **already in context**: the conversation, loaded memory or profile, the log, and files the user provided. A roast that stops the work for a fresh audit is itself trap 5.
+- **Exception: `tripwire setup` and `tripwire review` read the record first** — transcripts, git, the log — because both are about what already happened, not about the next decision. Reading there is the task, not an escape from it; the window and ceiling in `references/setup.md` keep it bounded.
 - Give 3–5 points, sharpest first. Each point goes **observation → evidence** (a fact, a phrase or a log line) **→ the question it raises**. Mark anything not directly evidenced as a guess, or leave it out. Name floor-2 points by catalog id and source.
 - Name one real strength the evidence supports. The purpose is calibration, not comfort.
 - A hard, self-ironic tone is fine when asked for. Aim it at the work patterns, never at the person.
@@ -126,8 +129,8 @@ The review answers one question: **is tripwire changing decisions, or only produ
    - `needed-more`: the minimal option was not enough.
    - `false-alarm`: the flag was useless.
    - `n/a`: the user proceeded with the original plan, or ignored a note.
-3. Ask whether they walked into a trap this week without a flag. Log each such case as `missed`.
-4. Ask for the current number of open directions.
+3. Find the traps walked into without a flag yourself — the same sources as `references/setup.md` Step 1, narrowed to the period since the last review — then put each candidate to the user with its address for confirmation. Log each confirmed case as `missed`. Ask blind only if the record is unreachable.
+4. Count the open directions from the record: unmerged branches, running timers and units, open PRs and issues. Show the number and the list, and let the user correct it.
 5. Report the numbers **per floor, side by side** (floor 1 = `<agent>`, floor 2 = `<agent>:fieldguide`): flagged; changed course (chose minimal); false alarms; missed; of the minimal choices, how many were enough and how many needed more; open directions compared with the last review. Lines from an older setup where the two floors ran as separate skills could both fire on one move; report them separately.
 6. Roast in 3–5 points, following roast mode, with log lines as evidence.
 7. Propose **at most one** change to the skill, the catalog or the profile, tied to a specific log line. "No change" is a valid and often the best result. A catalog row that never fired is a candidate for deletion.

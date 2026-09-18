@@ -7,9 +7,11 @@ kills the skill.
 
 ## Ground rules
 
-- **Evidence before patterns.** Every trap in the finished profile traces back to
-  something the user said in this session, or to something visible in the repository
-  they pointed at. No inference from personality, job title or tone.
+- **The record before memory.** Every trap in the finished profile traces back to an
+  address in the record — a transcript line, a commit, a log line, a file — not to
+  what the user recalls about themselves. Memory returns the patterns a person has
+  already accepted; the record shows the ones still running. No inference from
+  personality, job title or tone.
 - **Their words win.** Write the triggers the way the user phrases them, even when a
   textbook name exists. The profile is read at the moment of a decision; it has to
   sound like their own voice, not a taxonomy.
@@ -17,9 +19,39 @@ kills the skill.
 - **Ten minutes, then stop.** A short profile that fires is worth more than a complete
   one that never gets finished. Three traps are enough to start.
 
-## Step 1 — collect raw material
+## Step 1 — read the record
 
-Ask these in order, one per message. Stop early if the user is already naming patterns.
+Collect the evidence yourself before asking anything. Go in this order and stop at the
+ceiling below:
+
+1. **This session** — what the user has already said, asked for and changed their mind
+   about.
+2. **Session transcripts** — `~/.claude/projects/**/*.jsonl` for Claude Code, the
+   equivalent store for other clients (`~/.codex/sessions`, `~/.gemini`, an exported
+   chat log). Look for repeated moves: "while this runs, let's also", "one more round
+   of research", "add a guard for that", a plan replaced by a larger plan.
+3. **git** — branches that never merged, first and last commit date of a theme, what
+   appeared right after a single incident, work restarted under a new name.
+4. **The log and reviews** — `tripwire-log.md` and `tripwire-reviews.md` if the user's
+   `CLAUDE.md` or `AGENTS.md` names them: flags already raised, outcomes, `missed`
+   lines.
+5. **Scheduled and running work** — systemd timers and units, cron entries. Each one is
+   an open direction somebody has to keep alive.
+6. **Open PRs and issues** — started, not finished, not abandoned.
+
+**Window and ceiling are not optional.** Look back **90 days**; read at most **20
+sessions** and **50 commits**, newest first. Collection without a ceiling turns into
+the endless audit that is itself trap 5. When you hit the ceiling, say what you left
+unread instead of reading more.
+
+Bring back candidates, not conclusions, and give every candidate an address:
+`file:line`, a commit hash, a log line, or a timestamp in a transcript.
+
+### Step 1b — fallback, only when there is no record
+
+Use this when the record is unreachable — no transcripts, no repository, a fresh
+machine — or the user declines access. Ask in order, one per message, and stop early if
+the user is already naming patterns:
 
 1. Think of the last thing you built that turned out bigger than it needed to be. What
    was the first step that made it grow?
@@ -28,19 +60,23 @@ Ask these in order, one per message. Stop early if the user is already naming pa
    information change it?
 4. What do you already know about yourself here that keeps happening anyway?
 
-If the session has history — a repository, a log, earlier messages — mine it for
-evidence before asking, and bring what you found: "you opened three branches last week
-and closed one" beats asking the same thing blind.
+Say plainly that this profile rests on recollection, and that the first `tripwire
+review` with a log behind it will correct it.
 
 If the session already contains a grilling — the user stress-testing a plan or a
-decision with an agent — take the patterns from there first and put them to the user
-for confirmation instead of asking the four questions again. A grilling produces the
-insight; the profile is what makes it survive the week.
+decision with an agent — that counts as record: take the patterns from there first and
+put them to the user for confirmation instead of asking the four questions again. A
+grilling produces the insight; the profile is what makes it survive the week.
 
 ## Step 2 — grill
 
-Follow **Roast mode** in `SKILL.md` exactly: 3–5 points, sharpest first, each one
-`observation → evidence → the question it raises`, one real strength, no fresh audits.
+Follow **Roast mode** in `SKILL.md`: 3–5 points, sharpest first, each one
+`observation → evidence → the question it raises`, one real strength. The "no fresh
+audits" rule does not apply here — setup is *about* the past, and Step 1 is the audit.
+
+**Evidence is an address, not a recollection.** `bot/handlers.py:140 — three guards
+added after one 429` is evidence; "you tend to over-guard" is not. Drop a point you
+cannot address.
 
 Then ask the user which of the points they recognise. **Only confirmed points become
 traps.** A point they reject is dropped without argument — it is their profile, and a
@@ -63,17 +99,24 @@ For each confirmed pattern, write one row: the **observable move** that starts i
 
 Three to seven rows. More than that and nothing fires, because everything does.
 
+Each trap also carries its `evidence:` — the address from Step 1 that produced it. **A
+trap with no address is not written.** It is the line that makes the profile arguable
+later: at review the user can go and look, instead of re-deciding from memory.
+
 ## Step 4 — write the file
 
-Ask where it should live (default `~/whoami.md`) and whether the path is private —
-the profile describes how the user works and does not belong in a public repository.
+Ask where it should live and whether the path is private — the profile describes how
+the user works and does not belong in a public repository. For the default, read the
+user's global agent rules (`~/.claude/CLAUDE.md`, `AGENTS.md`) and use the profile path
+named there; only if none is named offer `~/whoami.md`.
 
 ```markdown
 # whoami — <name>
 
 ## My recurring traps
 
-- **<trap, user's words>.** <one line of the evidence it came from>
+- **<trap, user's words>.** <one line of what it came from>
+  evidence: <file:line | commit | log line | transcript timestamp>
 - ...
 
 ## Triggers → questions
@@ -93,11 +136,15 @@ will fire without opening anything.
 
 ## Step 5 — wire it up
 
-Give the user one line to paste into their global `CLAUDE.md` or `AGENTS.md`:
+Give the user one line to paste into their global `CLAUDE.md` or `AGENTS.md`, with the
+path they chose in Step 4:
 
 ```text
-Profile: ~/whoami.md. Tripwire log: ~/tripwire-log.md. Reviews: ~/tripwire-reviews.md.
+Profile: <profile path>. Tripwire log: ~/tripwire-log.md. Reviews: ~/tripwire-reviews.md.
 ```
+
+If that file already names the profile path, the line is already there — say so and
+change nothing.
 
 Logging is optional but it is the only thing that later answers "did this change any
 decision?". Without a log named here, tripwire writes nothing.

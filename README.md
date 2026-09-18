@@ -86,7 +86,7 @@ Open a new session and say:
 tripwire setup
 ```
 
-It grills you on your own recent decisions, turns the patterns **you recognise** into a triggers → questions table, writes the file, and hands you the one line that registers it. About ten minutes. Points you reject are dropped: a trap you don't believe in produces a flag you will ignore.
+It reads the record first — this session, your session transcripts, git, timers, open PRs, 90 days back — and comes back with candidate traps that each carry an address: a commit, a file:line, a log line. Then it grills you on those, turns the patterns **you recognise** into a triggers → questions table, writes the file, and hands you the one line that registers it. About ten minutes. Points you reject are dropped: a trap you don't believe in produces a flag you will ignore. It asks you to recall things only when there is no record to read.
 
 Just finished a grilling — [grill-me](https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me) or any other? Say `tripwire setup` in that same session. The interview takes its evidence from what you just found instead of asking for it again. The grilling produces the insight; the profile is what makes it survive the week.
 
@@ -94,11 +94,14 @@ Where the skill isn't installed, or an agent doesn't pick it up by name, paste t
 
 ```text
 Grill me about the traps I actually repeat as an engineer — where I overbuild,
-over-plan, or avoid deciding. Use only evidence from what I tell you, and ask me
-for that evidence first, one question at a time. Then write ~/whoami.md: my traps
-in my own words, plus a "triggers → questions" table where each row is an
-observable move and one short question about cost. Finish with the one line I add
-to my CLAUDE.md or AGENTS.md to register the file.
+over-plan, or avoid deciding. Read the record before asking me anything: this
+session, my session transcripts, git history (unmerged branches, what appeared
+right after one incident), scheduled jobs, open PRs — 90 days back, at most 20
+sessions and 50 commits. Bring candidates that each carry an address, and ask me
+to confirm or reject them, one at a time. Then write ~/whoami.md: my traps in my
+own words with the evidence address under each, plus a "triggers → questions"
+table where each row is an observable move and one short question about cost.
+Finish with the one line I add to my CLAUDE.md or AGENTS.md to register the file.
 ```
 
 ### Or write it by hand
@@ -129,7 +132,12 @@ It proposes at most one change per review. If a skill never changes a decision, 
 
 ## Status
 
-Experimental. Tripwire started as a personal trial on 2026-09-16. Version 0.3 merges two skills that ran side by side: the personal lens (floor 1) and a general catalog (floor 2).
+Experimental. Tripwire started as a personal trial on 2026-09-16.
+
+| Version | What changed |
+|---|---|
+| 0.4.0 | `tripwire setup` builds the profile from the record — transcripts, git, the log — instead of asking you to remember; every trap carries an evidence address. `tripwire review` counts missed traps and open directions from the record too. |
+| 0.3 | Merged two skills that ran side by side: the personal lens (floor 1) and a general catalog (floor 2). |
 
 ## License
 
