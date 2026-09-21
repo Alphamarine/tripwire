@@ -4,7 +4,7 @@
 
 **Stop walking into the same trap twice.**
 
-An agent skill that watches **you**, not the agent. When you steer into one of your own recurring traps, it asks one short question before the work starts. When you steer into a pain every programmer, engineer or mathematician knows, it adds one line. You always decide. Every flag is logged, and a weekly review shows whether any of it changed a decision.
+An agent skill that watches **you**, not the agent. When you steer into one of your own recurring traps, it asks one short question before the work starts. When you steer into a pain every programmer, engineer or mathematician knows, it adds one line. You always decide. With logging enabled, a weekly review separates whether a warning helped, what you decided, and how it turned out.
 
 ## Why it exists
 
@@ -43,7 +43,7 @@ Tripwire has two floors.
 | When | the move matches a trap from your profile | floor 1 is silent and the step is costly |
 | Form | stops, asks one question, waits | finishes the work, adds one line at the end |
 
-It flags only when the step adds lasting cost and the conversation does not already answer the question. One move gets at most one flag. After three flags you ignored in one session, it goes quiet.
+It flags only when the step adds lasting cost and the conversation does not already answer the question. One move gets at most one flag. If you chose `proceed` after the first two flags in a session, it suppresses the third and later routine flags. A materially new high-cost or irreversible step can get one fresh flag if its risk is still unanswered; the same accepted risk is not repeated. This pause does not label your decisions as mistakes.
 
 A floor-1 flag looks like this:
 
@@ -55,7 +55,7 @@ A floor-2 note looks like this:
 
 > **Tripwire · sunk cost (Arkes & Blumer 1985):** Starting today with zero invested, would you pick this parser? Minimal option: count only the evenings still ahead; park the branch, don't delete it.
 
-Tripwire replies in your language.
+Tripwire replies in your language. It is a plain-text skill, not a background monitor: it depends on the host loading the skill and relevant profile. Failure to load is different from a bad decision threshold.
 
 ## Install
 
@@ -72,7 +72,7 @@ To install by hand, copy or symlink `skills/tripwire/` into the skills folder of
 | Claude Code | `~/.claude/skills/tripwire` |
 | Codex | `~/.agents/skills/tripwire` |
 
-For ChatGPT, zip the `tripwire/` folder and upload it in **Skills**. ChatGPT cannot write files, so logging is off there.
+For a host that accepts uploaded skill archives, zip the `tripwire/` folder and use its skill-import interface. Logging requires a named destination and permitted file writes; without them, the skill reports in chat and does not claim persistence.
 
 ## Give it your profile
 
@@ -114,7 +114,9 @@ Finish with the one line I add to my CLAUDE.md or AGENTS.md to register the file
 
 Keep the profile private either way. It describes how you work, and the skill does not need it to be public.
 
-The first version will be wrong in places. Rows that never fire get deleted at the weekly review, and traps you walked into unflagged get added — the profile is meant to sharpen, not to grow.
+The first version will be wrong in places. Each active pattern has a stable ID, an observable move, a firing condition, a silence counterexample, a question and evidence. Normally keep 3–7 active patterns; fewer are fine. Existing two-column profiles still work without migration.
+
+**The profile changes; it need not grow.** A review can propose one refinement, confirmed recurring addition, merge or retirement. Zero flags without relevant opportunities do not justify deletion. Retired patterns keep their ID, evidence and reason under **Inactive**, and do not return via the general catalog. Reactivation needs new evidence and your approval. Every profile edit requires showing the exact diff and getting approval; global agent rules and private episodes stay untouched.
 
 ## Measure whether it helps
 
@@ -126,11 +128,13 @@ Profile: ~/whoami.md. Tripwire log: ~/tripwire-log.md. Reviews: ~/tripwire-revie
 
 Once a week, say `tripwire review`. It counts what can be counted — open directions from your branches, timers and PRs; traps you walked into unflagged from the week's record — and brings you the list to confirm or correct, rather than asking you to remember. Then it reports, per floor:
 
-- how many flags changed your course;
-- how many were false alarms;
-- which traps you walked into without a flag.
+- which warnings were useful, false alarms or still unknown — independently of whether you proceeded or chose minimal;
+- which path you chose and whether it held up, keeping unknown outcomes unknown;
+- confirmed misses, separating known activation failures from decision misses, plus coverage limits.
 
-It proposes at most one change per review. If a skill never changes a decision, the honest result is to delete it.
+It proposes at most one evidence-linked change per review and applies it only after approval. A useful warning may confirm your original plan; a minimal choice may still fail. Old logs remain readable without rewriting history. No target alert frequency, automatic personality updates or new monitoring service. If repeated relevant use shows no benefit, simplify or stop using the skill rather than keeping it for its own sake.
+
+Maintainers: [calibration rules](skills/tripwire/references/calibration.md) and [paired regression scenarios](skills/tripwire/references/evaluation.md). Expected scenario outcomes are not test results.
 
 ## Status
 
@@ -138,6 +142,7 @@ Experimental. Tripwire started as a personal trial on 2026-09-16.
 
 | Version | What changed |
 |---|---|
+| 0.4.1 (candidate) | Per-pattern firing/silence conditions and stable IDs; separate usefulness, decision and outcome; evidence-based retirement and approved diffs; legacy compatibility; activation-aware review and regression scenarios. Agent behavior still needs comparison against 0.4.0 before release. |
 | 0.4.0 | `tripwire setup` builds the profile from the record — transcripts, git, the log — instead of asking you to remember; every trap carries an evidence address, and setup writes one file you approved, never your `CLAUDE.md`. `tripwire review` counts for you too, inside a week-sized ceiling. Restores five norms the 0.3 compression dropped. |
 | 0.3 | Merged two skills that ran side by side: the personal lens (floor 1) and a general catalog (floor 2). |
 
