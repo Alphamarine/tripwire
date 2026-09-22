@@ -97,12 +97,18 @@ confirmed and needs no roast to earn its row.
 
 Then ask the user which of the points they recognise. **Only confirmed points become
 traps.** A point they reject is dropped without argument — it is their profile, and a
-trap they don't believe in produces a flag they will ignore.
+trap they don't believe in produces a flag they will ignore. A single episode is a
+candidate, not proof of recurrence; confirm repetition from the record or an explicit
+user account before adding an active recurring pattern. A serious one-off risk can be
+flagged in its current context without becoming a permanent trait.
 
 ## Step 3 — turn patterns into triggers
 
-For each confirmed pattern, write one row: the **observable move** that starts it, and
-**one question about cost** that fits it.
+For each confirmed pattern, write one row: a short **stable ID**, the **observable
+move**, a concrete **flag only when** condition, a **stay silent when** counterexample,
+and **one question about cost**. Conditions supplement the skill's global gates; they
+never turn a keyword into a sufficient reason to interrupt. Keep IDs on rename/reorder.
+Existing two-column profiles remain usable; enriching one requires an approved diff.
 
 | Good row | Why |
 |---|---|
@@ -114,7 +120,7 @@ For each confirmed pattern, write one row: the **observable move** that starts i
 | `when I'm being a perfectionist` → `is this perfectionism?` | not observable, and the question judges the person |
 | `before a big refactor` → `have you considered the alternatives?` | vague trigger, question can't be answered shortly |
 
-Three to seven rows. More than that and nothing fires, because everything does.
+Normally three to seven active rows; fewer are fine when evidence is thin. Do not invent patterns to meet a quota. Prefer sharpening or merging over accumulating rules.
 
 Each trap also carries its `evidence:` — the address from Step 1 that produced it. **A
 trap with no address is not written.** It is the line that makes the profile arguable
@@ -133,23 +139,26 @@ name the profile's own path in full — "writing the profile at ~/.claude/CLAUDE
 to the user as their global rules being rewritten, which is the one thing this skill
 promises not to do.
 
-If that path already holds a file, show its first lines and ask before writing over it.
+If that path already holds a file, show the exact diff and wait for approval before changing it, even if the user previously agreed to review or extend the profile. Keep inactive entries unless their removal was explicitly approved.
 
 ```markdown
 # whoami — <name>
 
 ## My recurring traps
 
-- **<trap, user's words>.** <one line of what it came from>
+- **<stable-id> — <trap, user's words>.** <one line of what it came from>
   evidence: <file:line | commit | log line | transcript timestamp>
 - ...
 
 ## Triggers → questions
 
-| When I… | Ask |
-|---|---|
-| <observable move> | <one question about cost> |
-| ... | ... |
+| ID | When I… | Flag only when | Stay silent when | Ask |
+|---|---|---|---|---|
+| <stable-id> | <observable move> | <costly, unanswered condition> | <concrete counterexample> | <one question about cost> |
+
+## Inactive
+
+<None, or retired IDs with evidence and reason; not live triggers.>
 
 ## How to talk to me
 
@@ -172,15 +181,18 @@ Profile: <profile path>. Tripwire log: ~/tripwire-log.md. Reviews: ~/tripwire-re
 If that file already names the profile path, the line is already there — say so and
 change nothing.
 
-Logging is optional but it is the only thing that later answers "did this change any
-decision?". Without a log named here, tripwire writes nothing.
+Logging is optional; it preserves the decision separately from the warning's
+usefulness and the eventual outcome. Without a log named here, tripwire writes nothing.
 
 ## Step 6 — close
 
-In three lines: how many triggers are live now, that flags start from the next move,
-and one date about a week out for the first `tripwire review`. Then stop — no
-improvement list, no second round of questions.
+In three lines: how many triggers are active, that they apply when the host loads
+the skill and profile, and one date about a week out to suggest for `tripwire review`
+(not an automatically scheduled task). Then stop — no improvement list.
 
-Tell the user plainly that the first version will be wrong in places: rows that never
-fire get deleted at review, and traps they walk into unflagged get added. The profile
-is meant to shrink and sharpen, not to grow.
+The first version will be wrong in places. Zero flags without relevant opportunities
+are not grounds for deletion. Review may propose one evidence-linked refinement,
+confirmed recurring addition, merge or retirement; show the diff and get approval.
+Retired patterns retain their ID, evidence and reason under Inactive, do not fire on
+either floor, and require new evidence plus approval to reactivate. The profile is
+editable experience, not a permanent description of the person.

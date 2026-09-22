@@ -1,8 +1,8 @@
 ---
 name: tripwire
-description: Stops you from walking into the same trap twice. Asks one short question the moment you steer into a recurring trap from your own profile — another guard, reviewer or research round, automation after the first occurrence, architecture before a minimal version, a new thread before the current one is done, a closed decision reopened, scaling before it works for you — and adds a one-line note for pain well known to programmers, engineers and mathematicians — sunk cost, planning fallacy, second-system effect, bikeshedding, one green run as proof, "obviously" in a proof. Logs every flag and reviews weekly whether it changed a decision. Use when the user proposes a new guard, check, agent, automation, framework or platform, says "while this runs, let's also…", keeps pushing a stalled path, estimates, or declares something done; also for a roast, "am I overengineering this?", "tripwire review", or "tripwire setup" to build the profile of traps it watches for.
+description: Use when the user proposes another guard, reviewer, automation, framework or research round; says "while this runs, let's also…"; opens a workstream before DONE; reopens a closed decision; scales before a minimal version works; estimates, keeps pushing a stalled path, or declares work done. Also use for a roast, a pattern review, "am I overengineering this?", "tripwire setup" or "tripwire review".
 metadata:
-  version: "0.4.0"
+  version: "0.4.1"
 ---
 
 # Tripwire
@@ -20,6 +20,8 @@ People who fall into these traps usually already know their patterns; another de
 ## Personal profile first
 
 Look for the user's own trap list: a "triggers → questions" section in CLAUDE.md or AGENTS.md, a `whoami.md`, or a file the user points to. Their words and questions take priority over the default catalog, because they describe the traps this person actually falls into.
+
+Use each active pattern's firing condition and silence condition, not just its trigger words. Keep stable IDs when rows are renamed or reordered. Inactive patterns do not fire, including through a matching floor 2 catalog row; an existing profile with no active rows is not a missing profile. Existing two-column profiles still work under the global gates below; never silently migrate them.
 
 The profile or `AGENTS.md` may also name a **tripwire log** and a **review file**. If neither is named, skip logging entirely.
 
@@ -53,11 +55,11 @@ Flag only when all three hold:
 - The step adds **lasting cost**: a new component, dependency, maintenance burden, open loop, growing committed time, a conclusion later work will stand on, or an irreversible action.
 - The conversation does **not already contain the answer**. Observed, repeated evidence already cited means the question is answered; just help.
 
-Stay silent when the step is cheap and reversible, when the user is learning or just asking, when they said "yes, deliberately", or when either floor already flagged in the same logical block. An irreversible or high-cost step is the one exception and gets its own flag.
+Stay silent when the step is cheap and reversible, when the user is learning or just asking, when they said "yes, deliberately", or when either floor already flagged in the same logical block. A materially new irreversible or high-cost step gets one fresh flag only when all three gates hold and the previous answer does not cover it; do not repeat an already accepted risk.
 
 **One flag per move.** Check floor 1 first. Go to floor 2 only when floor 1 is silent, and skip catalog rows the profile already covers.
 
-If you are about to flag a third time in one session (both floors together) and the user proceeded each time, go quiet. At a natural break, mention once that tripwire may be miscalibrated for them. Nagging is a trap of its own.
+After the first two flags in a session (both floors together), if the user chose `proceed` both times, suppress the third and later routine flags for that session. The materially new high-cost exception above still uses all three gates. This attention limit is not evidence of false alarms or permission to change the profile. At a natural break, mention the pause once. Nagging is a trap of its own.
 
 ## How to flag
 
@@ -86,10 +88,10 @@ The user can pick it up on the next turn or ignore it. When the flagged step is 
 Append exactly one line per flag, after the user's answer; for a floor-2 note the user did not answer, write `noted` when the conversation moves on. Don't add any other bookkeeping.
 
 ```
-- YYYY-MM-DD | <agent>[:fieldguide] | #<n> <trap> | <what was proposed, ≤12 words> | <proceed|minimal|dismissed|noted> | outcome: ?
+- YYYY-MM-DD | <agent>[:fieldguide] | #<id> <trap> | <what was proposed, ≤12 words> | <proceed|minimal|dismissed|noted> | usefulness: ? | outcome: ?
 ```
 
-Floor-2 lines carry the catalog id (`B2 second-system effect`). Test runs use `test` or `test:fieldguide` and are excluded from the numbers.
+Use the profile's stable ID when present; keep existing numeric identifiers for legacy/default rows. Do not invent usefulness or outcomes when logging. Old lines stay readable without rewriting them. Floor-2 lines carry the catalog id (`B2 second-system effect`). Confirmed missed cases use `missed` in the decision slot; record activation evidence or unknown cause in the review, not as a guessed flag outcome. Test runs use `test` or `test:fieldguide` and are excluded from the numbers.
 
 ### Examples
 
@@ -127,28 +129,25 @@ Use this when the user asks for a roast, a pattern review, or to be grilled:
 
 ## Review mode ("tripwire review", scheduled by the user)
 
-The review answers one question: **is tripwire changing decisions, or only producing text?**
+The review answers one question: **is tripwire improving decisions, or only producing text?** Read `references/calibration.md` for interpretation and approved profile changes. A useful warning can confirm a decision to proceed; choosing minimal is not proof of success.
 
 Anything countable, count yourself. The user's part is confirming and correcting a list you bring, never recalling a number — a number recalled is trap A7 in the catalog, and a weekly quiz is how a review stops happening.
 
 1. Read the log lines since the last review, the profile, and the last entry in the review file.
-2. Go through the entries whose outcome is still `?` together with the user, one short answer each:
-   - `enough`: the minimal option held up.
-   - `needed-more`: the minimal option was not enough.
-   - `false-alarm`: the flag was useless.
-   - `n/a`: the user proceeded with the original plan, or ignored a note.
-3. Find the traps walked into without a flag yourself, from the record since the last review: the sources in `references/setup.md` Step 1, at most **10 sessions** and **25 commits** — a week's worth, not a quarter's. Put each candidate to the user with its address, one line each, and they answer yes or no. Log each confirmed case as `missed`. Ask blind only when the record is unreachable.
+2. Bring unresolved entries with the evidence available, one at a time. Keep three things separate: the recorded decision, `usefulness: useful|false-alarm|?` (user-confirmed), and `outcome: enough|needed-more|?` (whether the chosen path held up). Preserve unknowns; neither agreement nor proceeding determines usefulness. Interpret legacy `false-alarm` and `n/a` as described in `references/calibration.md`.
+3. Find the traps walked into without a flag yourself, from the record since the last review: the sources in `references/setup.md` Step 1, at most **10 sessions** and **25 commits** — a week's worth, not a quarter's. Put each candidate to the user with its address, one line each, and they answer yes or no. Log each confirmed case as `missed`; distinguish a loaded skill that missed a trap from a skill not loaded, and leave the cause unknown when there is no evidence. Ask blind only when the record is unreachable.
 4. Count the open directions yourself, cheapest source first: unmerged branches, running timers and units, open PRs and issues — one command each, no transcript mining here. Show the number and the list; the user corrects it.
-5. Report the numbers **per floor, side by side** (floor 1 = `<agent>`, floor 2 = `<agent>:fieldguide`): flagged; changed course (chose minimal); false alarms; missed; of the minimal choices, how many were enough and how many needed more; open directions compared with the last review. Lines from an older setup where the two floors ran as separate skills could both fire on one move; report them separately.
+5. Report the numbers **per floor, side by side** (floor 1 = `<agent>`, floor 2 = `<agent>:fieldguide`): flagged; useful (including useful + proceed); changed course (chose minimal); false alarms; unknown usefulness; confirmed misses by known/unknown activation cause; outcomes split by decision; open directions compared with the last review. Do not infer a miss's floor when the record cannot establish it. Report missing coverage rather than invented zeros. Older separately running floors may both have fired on one move; keep those records separate.
 6. Roast in 3–5 points, following roast mode, with log lines as evidence.
-7. Propose **at most one** change to the skill, the catalog or the profile, tied to a specific log line. "No change" is a valid and often the best result. A catalog row that never fired is a candidate for deletion.
+7. Propose **at most one** evidence-linked change using `references/calibration.md`: narrow a noisy condition, clarify a confirmed miss, add a confirmed recurring candidate, merge duplicates, or retire an outdated pattern. Zero flags alone never justify deletion. Show the exact diff and wait for approval before editing a profile, skill or catalog. "No change" is valid.
 8. Check the gate the user set for this date: DONE / NOT DONE / UNKNOWN.
-9. Append one entry to the review file: the date, the numbers, the one change (or "none"), and the gate result.
+9. Append one entry to the named review file: the date, the numbers and coverage limits, the one change with its evidence and status (`proposed`, `approved`, `applied`, or `none`), and the gate result. If no writable destination is named, report without writing. Never report a proposal as applied.
 
-With one person and no control group, this data shows a direction, not proof. Course changes growing, false alarms staying low, minimal choices mostly holding and open directions shrinking over several weeks is a meaningful signal; a single good week is not.
+With one person and no control group, this data shows a direction, not proof. Compare usefulness and outcomes across relevant opportunities over several weeks, not against a target flag frequency. No opportunities, missing records and a loaded skill remaining silent are different cases. Review changes explicit instructions, not model weights.
 
 ## What tripwire is not
 
+- Not a background monitor: it depends on the host loading the skill and the relevant context. A missed activation is not a reason to lower its decision threshold.
 - Not a gatekeeper: the user always decides.
 - Not a replacement for agent-side scope guards; it complements them.
 - Not a personality assessment or therapy: only work decisions visible in the conversation.
